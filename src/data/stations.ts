@@ -1,0 +1,33 @@
+export const STATION_SIGNALS = {
+  QA: 82,
+  FM: 15,
+  BT: 67,
+  HX: 29,
+  DP: 94,
+  AK: 41,
+  RC: 73,
+  LM: 8,
+  ZF: 56,
+  KN: 38,
+  PE: 99,
+  CU: 24,
+  SJ: 61,
+  VG: 47,
+};
+
+export const INITIAL_STATIONS = [
+  "QA",
+  "FM",
+  "BT",
+  "HX",
+  "DP",
+  "AK",
+  "RC",
+  "LM",
+  "ZF",
+  "KN",
+  "PE",
+  "CU",
+  "SJ",
+  "VG",
+];
