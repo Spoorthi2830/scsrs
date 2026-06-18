@@ -28,9 +28,9 @@ export default function Level2() {
         transition={{ duration: 1 }}
         className="bg-gray-900 border border-green-500 rounded-xl p-6 mb-8"
       >
-        <h3 className="text-xl font-bold mb-4">
-          Topological Order
-        </h3>
+       <h3 className="text-2xl text-green-400 font-bold mb-4">
+  AI Dependency Resolution Protocol
+</h3>
 
         <div className="flex flex-wrap gap-3">
           {stationOrder.map((station) => (
@@ -45,9 +45,9 @@ export default function Level2() {
       </motion.div>
 
       <div className="bg-gray-900 border border-cyan-500 rounded-xl p-6 mb-8">
-        <h3 className="text-xl font-bold mb-4">
-          Resolution Sequence
-        </h3>
+        <h3 className="text-2xl text-cyan-400 font-bold mb-4">
+  Recovery Execution Chain
+</h3>
 
         <p className="text-lg">
           {stationOrder.join(" → ")}
