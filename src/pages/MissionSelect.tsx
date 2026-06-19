@@ -47,8 +47,7 @@ export default function MissionSelect() {
 
   return (
   <>
-    {/*    <NeoGridCity progress={cityProgress} /> */}
-
+    <NeoGridCity />
     <div className="min-h-screen text-white p-8 relative z-10">
       <div className="text-center mb-12">
         <h1 className="text-6xl font-bold text-cyan-400 mb-4">
