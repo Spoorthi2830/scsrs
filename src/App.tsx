@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { GameProvider } from "./context/GameContext";
 
 import Landing from "./pages/landing";
 import Level1 from "./pages/l1";
@@ -9,16 +10,18 @@ import Level5 from "./pages/l5";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/level1" element={<Level1 />} />
-        <Route path="/level2" element={<Level2 />} />
-        <Route path="/level3" element={<Level3 />} />
+    <GameProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/level1" element={<Level1 />} />
+          <Route path="/level2" element={<Level2 />} />
+          <Route path="/level3" element={<Level3 />} />
         <Route path="/level4" element={<Level4 />} />
         <Route path="/level5" element={<Level5 />} />
       </Routes>
     </BrowserRouter>
+    </GameProvider>
   );
 }
 
