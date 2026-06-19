@@ -6,9 +6,10 @@ import { countInversions } from "../algorithms/mergeSort";
 
 import { useGame } from "../context/GameContext";
 
-const { completeMission } = useGame();
+
 
 export default function Level1() {
+   const { completeMission } = useGame();
   const values = INITIAL_STATIONS.map(
     (station) =>
       STATION_SIGNALS[station as keyof typeof STATION_SIGNALS]
