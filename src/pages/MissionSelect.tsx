@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { useGame } from "../context/GameContext";
-import NeoGridCity from "../components/NeoGridCity"; 
+import NeoGridCity from "../components/NeoGridCity";
+import GameHeader from "../components/GameHeader";
 
 export default function MissionSelect() {
-  const { unlockedLevel , cityProgress } = useGame();
+  const { unlockedLevel } = useGame();
 
   const missions = [
     {
@@ -43,119 +44,85 @@ export default function MissionSelect() {
     },
   ];
 
-
-
   return (
-  <>
-    <NeoGridCity />
-    <div className="min-h-screen text-white p-8 relative z-10">
-      <div className="text-center mb-12">
-        <h1 className="text-6xl font-bold text-cyan-400 mb-4">
-          Mission Control
-        </h1>
-       
+    <>
+      <NeoGridCity />
 
-        <p className="text-gray-300 max-w-3xl mx-auto">
-          AURA has identified five critical recovery missions.
-          Complete them in sequence to restore NeoGrid.
-        </p>
+      <div className="min-h-screen text-white relative z-10 p-8">
 
-        <div className="mt-6 text-cyan-300">
-          Current Clearance Level: {unlockedLevel}
-          <div className="mt-8 bg-gray-900 rounded-xl p-6 border border-cyan-500">
+        <div className="max-w-6xl mx-auto">
 
-  <h2 className="text-2xl text-cyan-400 mb-4">
-    NeoGrid Status
-  </h2>
+          <h1 className="text-6xl font-bold text-center text-cyan-300 mb-4">
+            Mission Control
+          </h1>
 
-  <div className="space-y-3">
+          <p className="text-center text-gray-300 mb-10">
+            Select a recovery mission to rebuild NeoGrid.
+          </p>
 
-    <div>
-      Traffic Systems:
-      {cityProgress >= 1 ? " ✅" : " ❌"}
-    </div>
+          <GameHeader />
 
-    <div>
-      Communications:
-      {cityProgress >= 2 ? " ✅" : " ❌"}
-    </div>
+          <div className="grid md:grid-cols-2 gap-6">
 
-    <div>
-      Network Links:
-      {cityProgress >= 3 ? " ✅" : " ❌"}
-    </div>
+            {missions.map((mission) => {
+              const active = mission.id === unlockedLevel;
+              const unlocked = mission.id < unlockedLevel;
 
-    <div>
-      Power Grid:
-      {cityProgress >= 4 ? " ✅" : " ❌"}
-    </div>
-
-    <div>
-      NeoGrid Core:
-      {cityProgress >= 5 ? " ✅" : " ❌"}
-    </div>
-
-  </div>
-
-</div>
-        </div>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-8">
-
-        {missions.map((mission) => {
-          const unlocked = mission.id <= unlockedLevel;
-
-          return (
-            <div
-              key={mission.id}
-             className={`rounded-2xl p-6 border transition duration-300 backdrop-blur-md
-                ${
-                unlocked
-                    ? "border-cyan-500 bg-black/50 hover:scale-105"
-                    : "border-gray-700 bg-black/70 opacity-70"
-                }`}
-            >
-              <div className="flex justify-between items-center mb-4">
-
-                <h2 className="text-2xl font-bold">
-                  Mission {mission.id}
-                </h2>
-
-                <span className="text-2xl">
-                  {unlocked ? "🔓" : "🔒"}
-                </span>
-
-              </div>
-
-              <h3 className="text-cyan-300 text-lg mb-3">
-                {mission.name}
-              </h3>
-
-              <p className="text-gray-400 mb-6">
-                {mission.description}
-              </p>
-
-              {unlocked ? (
-                <Link to={mission.route}>
-                  <button className="bg-cyan-500 text-black px-5 py-2 rounded-lg font-bold hover:bg-cyan-400">
-                    Enter Mission
-                  </button>
-                </Link>
-              ) : (
-                <button
-                  disabled
-                  className="bg-gray-700 px-5 py-2 rounded-lg"
+              return (
+                <div
+                  key={mission.id}
+                  className="bg-black/60 backdrop-blur-md border border-cyan-400 rounded-2xl p-6 hover:scale-105 transition"
                 >
-                  Locked
-                </button>
-              )}
+                  <div className="flex justify-between items-center mb-4">
 
-            </div>
-          );
-        })}
+                    <h2 className="text-2xl font-bold">
+                      Mission {mission.id}
+                    </h2>
+
+                    <span className="text-2xl">
+                      {active ? "▶" : unlocked ? "🔓" : "🔒"}
+                    </span>
+
+                  </div>
+
+                  <h3 className="text-cyan-300 text-lg mb-3">
+                    {mission.name}
+                  </h3>
+
+                  <p className="text-gray-300 mb-6">
+                    {mission.description}
+                  </p>
+
+                  {active ? (
+                    <Link to={mission.route}>
+                      <button className="bg-cyan-400 text-black px-5 py-2 rounded-lg font-bold hover:bg-cyan-300">
+                        Enter Mission
+                      </button>
+                    </Link>
+                  ) : unlocked ? (
+                    <Link to={mission.route}>
+                      <button className="bg-green-500 text-black px-5 py-2 rounded-lg font-bold hover:bg-green-400">
+                        Unlocked
+                      </button>
+                    </Link>
+                  ) : (
+                    <button
+                      disabled
+                      className="bg-gray-700 text-gray-400 px-5 py-2 rounded-lg"
+                    >
+                      Locked
+                    </button>
+                  )}
+
+                </div>
+              );
+            })}
+
+          </div>
+
+        </div>
 
       </div>
-    </div>
-  </>);
+    </>
+  );
 }
