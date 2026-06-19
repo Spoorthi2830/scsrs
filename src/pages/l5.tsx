@@ -1,3 +1,7 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useGame } from "../context/GameContext";
+
 import { motion } from "framer-motion";
 
 import {
@@ -7,9 +11,55 @@ import {
   PATH_EDGES,
 } from "../data/dijkstraData";
 
+import GameHeader from "../components/GameHeader";
+import NeoGridCity from "../components/NeoGridCity";
+
 export default function Level5() {
+  const { completeMission } = useGame();
+
+  const [showComplete, setShowComplete] = useState(false);
+
+  const navigate = useNavigate();
+
+  if (showComplete) {
+    return (
+      <>
+        <NeoGridCity />
+
+        <div className="min-h-screen flex items-center justify-center relative z-10">
+
+          <div className="bg-black/50 backdrop-blur-md border border-cyan-500 rounded-2xl p-10 text-center">
+
+            <h1 className="text-6xl text-green-400 font-bold mb-6">
+              ✓ MISSION COMPLETE
+            </h1>
+
+            <p className="text-3xl text-cyan-300 mb-4">
+              NeoGrid Fully Restored
+            </p>
+
+            <p className="text-xl text-gray-300 mb-8">
+              Recovery 100%
+            </p>
+
+            <div className="text-lg text-cyan-200">
+              AURA: All critical systems online.
+            </div>
+
+            <div className="mt-4 text-gray-300">
+              The city has been saved.
+            </div>
+
+          </div>
+
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-red-950 text-white p-8">
+      <GameHeader />
 
       <h1 className="text-5xl text-red-400 font-bold text-center mb-8">
         LEVEL 5
@@ -67,6 +117,24 @@ export default function Level5() {
         <p className="mt-6 text-lg text-gray-200">
           CRITICAL ROUTE RESTORED
         </p>
+
+        <div className="flex justify-center mt-10">
+          <button
+            onClick={() => {
+              completeMission(5);
+
+              setShowComplete(true);
+
+              setTimeout(() => {
+                navigate("/missions");
+              }, 3000);
+            }}
+            className="px-8 py-3 bg-red-500 text-black font-bold rounded-xl hover:scale-105 transition"
+          >
+            Restore NeoGrid →
+          </button>
+        </div>
+
       </div>
 
     </div>

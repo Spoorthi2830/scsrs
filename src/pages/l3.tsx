@@ -1,11 +1,56 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useGame } from "../context/GameContext";
+
 import { motion } from "framer-motion";
 
-import { MST_COST, BINARY_KEY, MST_EDGES } from "../data/weightedMatrix";
+import {
+  MST_COST,
+  BINARY_KEY,
+  MST_EDGES,
+} from "../data/weightedMatrix";
+
+import GameHeader from "../components/GameHeader";
+import NeoGridCity from "../components/NeoGridCity";
 
 export default function Level3() {
+  const { completeMission } = useGame();
+
+  const [showComplete, setShowComplete] = useState(false);
+
+  const navigate = useNavigate();
+
+  if (showComplete) {
+    return (
+      <>
+        <NeoGridCity />
+
+        <div className="min-h-screen flex items-center justify-center relative z-10">
+
+          <div className="bg-black/50 backdrop-blur-md border border-yellow-500 rounded-2xl p-10 text-center">
+
+            <h1 className="text-5xl text-green-400 font-bold mb-4">
+              ✓ Mission Complete
+            </h1>
+
+            <p className="text-cyan-300 text-xl">
+              Network Links Restored
+            </p>
+
+            <p className="mt-4 text-gray-300">
+              NeoGrid Recovery +60%
+            </p>
+
+          </div>
+
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-yellow-950 text-white p-8">
+      <GameHeader />
 
       <h1 className="text-5xl text-yellow-400 font-bold text-center mb-8">
         LEVEL 3
@@ -70,11 +115,20 @@ export default function Level3() {
       </div>
 
       <div className="flex justify-center">
-        <Link to="/level4">
-          <button className="px-8 py-3 bg-yellow-500 text-black font-bold rounded-xl hover:scale-105 transition">
-            Proceed to Level 4 →
-          </button>
-        </Link>
+        <button
+          onClick={() => {
+            completeMission(3);
+
+            setShowComplete(true);
+
+            setTimeout(() => {
+              navigate("/level4");
+            }, 2000);
+          }}
+          className="px-8 py-3 bg-yellow-500 text-black font-bold rounded-xl hover:scale-105 transition"
+        >
+          Proceed to Level 4 →
+        </button>
       </div>
 
     </div>

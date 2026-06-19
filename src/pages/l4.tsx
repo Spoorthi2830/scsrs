@@ -1,4 +1,7 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useGame } from "../context/GameContext";
+
 import { motion } from "framer-motion";
 
 import {
@@ -9,9 +12,47 @@ import {
   FINAL_CODE,
 } from "../data/knapsackData";
 
+import GameHeader from "../components/GameHeader";
+import NeoGridCity from "../components/NeoGridCity";
+
 export default function Level4() {
+  const { completeMission } = useGame();
+
+  const [showComplete, setShowComplete] = useState(false);
+
+  const navigate = useNavigate();
+
+  if (showComplete) {
+    return (
+      <>
+        <NeoGridCity />
+
+        <div className="min-h-screen flex items-center justify-center relative z-10">
+
+          <div className="bg-black/50 backdrop-blur-md border border-purple-500 rounded-2xl p-10 text-center">
+
+            <h1 className="text-5xl text-green-400 font-bold mb-4">
+              ✓ Mission Complete
+            </h1>
+
+            <p className="text-cyan-300 text-xl">
+              Power Grid Restored
+            </p>
+
+            <p className="mt-4 text-gray-300">
+              NeoGrid Recovery +80%
+            </p>
+
+          </div>
+
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-purple-950 text-white p-8">
+      <GameHeader />
 
       <h1 className="text-5xl text-purple-400 font-bold text-center mb-8">
         LEVEL 4
@@ -71,11 +112,20 @@ export default function Level4() {
       </div>
 
       <div className="flex justify-center">
-        <Link to="/level5">
-          <button className="px-8 py-3 bg-purple-500 text-black font-bold rounded-xl hover:scale-105 transition">
-            Proceed to Level 5 →
-          </button>
-        </Link>
+        <button
+          onClick={() => {
+            completeMission(4);
+
+            setShowComplete(true);
+
+            setTimeout(() => {
+              navigate("/level5");
+            }, 2000);
+          }}
+          className="px-8 py-3 bg-purple-500 text-black font-bold rounded-xl hover:scale-105 transition"
+        >
+          Proceed to Level 5 →
+        </button>
       </div>
 
     </div>

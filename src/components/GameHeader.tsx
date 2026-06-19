@@ -4,52 +4,25 @@ export default function GameHeader() {
   const { cityProgress } = useGame();
 
   return (
-    <div className="mb-8">
+    <div className="mb-8 bg-black/60 backdrop-blur-md border border-cyan-500 rounded-xl p-4">
+      <div className="flex justify-between mb-2">
+        <span className="text-cyan-300 font-bold">
+          NeoGrid Recovery
+        </span>
 
-      <div className="
-        bg-cyan-500/10
-        backdrop-blur-md
-        border border-cyan-400/40
-        rounded-2xl
-        p-5
-      ">
-
-        <div className="flex justify-between items-center mb-4">
-
-          <div>
-            <h2 className="text-cyan-300 text-sm">
-              AURA COMMAND INTERFACE
-            </h2>
-
-            <h1 className="text-2xl font-bold text-white">
-              NeoGrid Recovery
-            </h1>
-          </div>
-
-          <div className="text-cyan-300 text-xl">
-            {cityProgress * 20}%
-          </div>
-
-        </div>
-
-        <div className="w-full h-3 bg-black/40 rounded-full overflow-hidden">
-
-          <div
-            className="
-              h-full
-              bg-cyan-400
-              transition-all
-              duration-1000
-            "
-            style={{
-              width: `${cityProgress * 20}%`,
-            }}
-          />
-
-        </div>
-
+        <span className="text-cyan-300">
+          {cityProgress * 20}%
+        </span>
       </div>
 
+      <div className="w-full bg-gray-800 rounded-full h-4">
+        <div
+          className="bg-cyan-400 h-4 rounded-full transition-all duration-1000"
+          style={{
+            width: `${cityProgress * 20}%`,
+          }}
+        />
+      </div>
     </div>
   );
 }

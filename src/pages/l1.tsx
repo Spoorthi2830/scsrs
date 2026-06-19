@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import { INITIAL_STATIONS, STATION_SIGNALS } from "../data/stations";
@@ -6,10 +7,16 @@ import { countInversions } from "../algorithms/mergeSort";
 
 import { useGame } from "../context/GameContext";
 
-
+import GameHeader from "../components/GameHeader";
+import NeoGridCity from "../components/NeoGridCity";
 
 export default function Level1() {
-   const { completeMission } = useGame();
+  const { completeMission } = useGame();
+
+  const [showComplete, setShowComplete] = useState(false);
+
+  const navigate = useNavigate();
+
   const values = INITIAL_STATIONS.map(
     (station) =>
       STATION_SIGNALS[station as keyof typeof STATION_SIGNALS]
@@ -23,8 +30,38 @@ export default function Level1() {
       STATION_SIGNALS[b as keyof typeof STATION_SIGNALS]
   );
 
+  if (showComplete) {
+    return (
+      <>
+        <NeoGridCity />
+
+        <div className="min-h-screen flex items-center justify-center relative z-10">
+
+          <div className="bg-black/50 backdrop-blur-md border border-cyan-500 rounded-2xl p-10 text-center">
+
+            <h1 className="text-5xl text-green-400 font-bold mb-4">
+              ✓ Mission Complete
+            </h1>
+
+            <p className="text-cyan-300 text-xl">
+              Traffic Systems Restored
+            </p>
+
+            <p className="mt-4 text-gray-300">
+              NeoGrid Recovery +20%
+            </p>
+
+          </div>
+
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-cyan-950 text-white p-8">
+      <GameHeader />
+
       <h1 className="text-5xl text-cyan-400 font-bold mb-8 text-center">
         LEVEL 1
       </h1>
@@ -87,16 +124,22 @@ export default function Level1() {
       </div>
 
       <div className="flex justify-center">
-        <Link to="/level2"
-  onClick={() => completeMission(1)}>
-          <button className="px-8 py-3 bg-cyan-500 text-black font-bold rounded-xl hover:scale-105 transition">
-            Proceed to Level 2 →
-            
-          </button>
+        <button
+          onClick={() => {
+            completeMission(1);
 
-          
-        </Link>
+            setShowComplete(true);
+
+            setTimeout(() => {
+              navigate("/level2");
+            }, 2000);
+          }}
+          className="px-8 py-3 bg-cyan-500 text-black font-bold rounded-xl hover:scale-105 transition"
+        >
+          Proceed to Level 2 →
+        </button>
       </div>
+
     </div>
   );
 }
