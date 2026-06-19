@@ -1,3 +1,149 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* TRAFFIC */
+
+.traffic-car {
+  position: absolute;
+  font-size: 2rem;
+  bottom: 12%;
+  z-index: 5;
+}
+
+.car1 {
+  animation: drive 12s linear infinite;
+}
+
+.car2 {
+  animation: drive 18s linear infinite;
+}
+
+@keyframes drive {
+  from {
+    left: -100px;
+  }
+
+  to {
+    left: 110%;
+  }
+}
+
+/* SIGNALS */
+
+.signal {
+  position: absolute;
+  width: 8px;
+  height: 120px;
+  background: cyan;
+  box-shadow: 0 0 20px cyan;
+  animation: pulse 2s infinite;
+}
+
+.signal1 {
+  top: 20%;
+  left: 25%;
+}
+
+.signal2 {
+  top: 15%;
+  right: 25%;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.3;
+  }
+}
+
+/* NETWORK */
+
+.network-line {
+  position: absolute;
+  height: 3px;
+  background: #00ffff;
+  box-shadow: 0 0 12px cyan;
+  animation: glow 2s infinite;
+}
+
+.line1 {
+  width: 300px;
+  top: 35%;
+  left: 20%;
+}
+
+.line2 {
+  width: 250px;
+  top: 45%;
+  left: 40%;
+}
+
+.line3 {
+  width: 200px;
+  top: 30%;
+  left: 60%;
+}
+
+@keyframes glow {
+  0% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.2;
+  }
+}
+
+/* POWER */
+
+.power-glow {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,255,255,0.08);
+  animation: powerPulse 4s infinite;
+}
+
+@keyframes powerPulse {
+  50% {
+    background: rgba(0,255,255,0.18);
+  }
+}
+
+/* AIRSHIPS */
+
+.airship {
+  position: absolute;
+  font-size: 3rem;
+}
+
+.ship1 {
+  top: 18%;
+  animation: fly 25s linear infinite;
+}
+
+.ship2 {
+  top: 28%;
+  animation: fly 35s linear infinite;
+}
+
+@keyframes fly {
+  from {
+    left: -150px;
+  }
+
+  to {
+    left: 110%;
+  }
+}

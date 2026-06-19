@@ -4,6 +4,10 @@ import { motion } from "framer-motion";
 import { INITIAL_STATIONS, STATION_SIGNALS } from "../data/stations";
 import { countInversions } from "../algorithms/mergeSort";
 
+import { useGame } from "../context/GameContext";
+
+const { completeMission } = useGame();
+
 export default function Level1() {
   const values = INITIAL_STATIONS.map(
     (station) =>
@@ -82,9 +86,11 @@ export default function Level1() {
       </div>
 
       <div className="flex justify-center">
-        <Link to="/level2">
+        <Link to="/level2"
+  onClick={() => completeMission(1)}>
           <button className="px-8 py-3 bg-cyan-500 text-black font-bold rounded-xl hover:scale-105 transition">
             Proceed to Level 2 →
+            
           </button>
         </Link>
       </div>

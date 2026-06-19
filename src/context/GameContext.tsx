@@ -2,7 +2,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 type GameContextType = {
   unlockedLevel: number;
-  unlockLevel: (level: number) => void;
+  cityProgress: number;
+  completeMission: (mission: number) => void;
 };
 
 const GameContext = createContext<GameContextType | null>(null);
@@ -13,20 +14,48 @@ export function GameProvider({
   children: React.ReactNode;
 }) {
   const [unlockedLevel, setUnlockedLevel] = useState(1);
+  const [cityProgress, setCityProgress] = useState(0);
 
   useEffect(() => {
-    const saved = localStorage.getItem("neogrid-progress");
+    const savedLevel = localStorage.getItem(
+      "neogrid-unlocked"
+    );
 
-    if (saved) {
-      setUnlockedLevel(Number(saved));
+    const savedCity = localStorage.getItem(
+      "neogrid-city"
+    );
+
+    if (savedLevel) {
+      setUnlockedLevel(Number(savedLevel));
+    }
+
+    if (savedCity) {
+      setCityProgress(Number(savedCity));
     }
   }, []);
 
-  const unlockLevel = (level: number) => {
-    setUnlockedLevel(level);
+  const completeMission = (mission: number) => {
+    const nextLevel = Math.max(
+      unlockedLevel,
+      mission + 1
+    );
+
+    const nextCity = Math.max(
+      cityProgress,
+      mission
+    );
+
+    setUnlockedLevel(nextLevel);
+    setCityProgress(nextCity);
+
     localStorage.setItem(
-      "neogrid-progress",
-      String(level)
+      "neogrid-unlocked",
+      String(nextLevel)
+    );
+
+    localStorage.setItem(
+      "neogrid-city",
+      String(nextCity)
     );
   };
 
@@ -34,7 +63,8 @@ export function GameProvider({
     <GameContext.Provider
       value={{
         unlockedLevel,
-        unlockLevel,
+        cityProgress,
+        completeMission,
       }}
     >
       {children}
